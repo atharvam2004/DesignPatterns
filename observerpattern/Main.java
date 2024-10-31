@@ -1,3 +1,5 @@
+         // feature notify users when iphone available
+
 package observerpattern;
 
 public class Main {
