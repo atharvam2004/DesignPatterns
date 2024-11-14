@@ -28,7 +28,7 @@ class FileSystem{
 class Video{
     Frame [] frames;
     String metaData;
-    String id;
+    String id;   
     Frame getFrame(int timeStamp){
         for(Frame f:frames){
             if(f.startTimeStamp<timeStamp&&f.endTimeStamp>timeStamp){
