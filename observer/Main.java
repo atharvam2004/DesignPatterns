@@ -1,6 +1,6 @@
          // feature notify users when iphone available
 
-package observerpattern;
+package observer;
 
 public class Main {
     public static void main(String[] args) { 

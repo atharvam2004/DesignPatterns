@@ -1,4 +1,4 @@
-package observerpattern;
+package observer;
 
 // Add observers who would subscribe to notifications 
 public interface IObservable {

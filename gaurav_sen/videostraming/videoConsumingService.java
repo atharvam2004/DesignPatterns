@@ -1,5 +1,8 @@
-interface database{
-    WatchedVideo getWatchedVideo(String userid,String videoid);
+package videostraming;
+class database{
+    WatchedVideo getWatchedVideo(String userid,String videoid){
+        return new WatchedVideo();
+    }
 }
 public class videoConsumingService{
     database database;
