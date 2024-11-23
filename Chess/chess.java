@@ -23,6 +23,7 @@ abstract class piece {
     color geColor() {
         return color;
     }
+    
 
     Position currentPosition;
 
