@@ -83,38 +83,22 @@ class Flight {
 class User {
     private String userId;
     private String name;
-    private List<Booking> bookings = new ArrayList<>();
+    private List<String> bookedFlights = new ArrayList<>();
 
     public User(String userId, String name) {
         this.userId = userId;
         this.name = name;
     }
 
-    public void addBooking(Booking booking) { bookings.add(booking); }
-    public List<Booking> getBookings() { return bookings; }
+    public void bookSeat(Flight flight, String seatId) {
+        Seat seat = flight.assignSeatToCustomer(seatId, userId);
+        bookedFlights.add("Flight: " + flight.getFlightId() + ", Seat: " + seat.getSeatId() + " (" + seat.getSeatType() + ")");
+        System.out.println("Seat booked successfully: Flight: " + flight.getFlightId() + ", Seat: " + seat.getSeatId());
+    }
+
+    public List<String> getBookedFlights() { return bookedFlights; }
     public String getName() { return name; }
     public String getUserId() { return userId; }
-}
-
-class Booking {
-    private String bookingId;
-    private Flight flight;
-    private User user;
-    private Seat seat;
-
-    public Booking(String bookingId, Flight flight, User user, Seat seat) {
-        this.bookingId = bookingId;
-        this.flight = flight;
-        this.user = user;
-        this.seat = seat;
-    }
-
-    @Override
-    public String toString() {
-        return "Booking: " + bookingId + ", Flight: " + flight.getFlightId() +
-                ", User: " + user.getName() + ", Seat: " + seat.getSeatId() +
-                " (" + seat.getSeatType() + ")";
-    }
 }
 
 class FlightService {
@@ -174,17 +158,17 @@ public class MakeMyTrip {
             List<Seat> availableSeats = selectedFlight.getAvailableSeats();
 
             if (!availableSeats.isEmpty()) {
-                Seat seatToBook = availableSeats.get(0); // Book the first available seat
-                selectedFlight.assignSeatToCustomer(seatToBook.getSeatId(), user.getUserId());
-
-                Booking booking = new Booking("B001", selectedFlight, user, seatToBook);
-                user.addBooking(booking);
-                System.out.println("Booking successful: " + booking);
+                String seatIdToBook = availableSeats.get(0).getSeatId(); // Book the first available seat
+                user.bookSeat(selectedFlight, seatIdToBook);
             } else {
                 System.out.println("No seats available on the selected flight.");
             }
         } else {
             System.out.println("No flights available on the selected date.");
         }
+
+        // Print User Bookings
+        System.out.println("User's Booked Flights: " + user.getBookedFlights());
     }
 }
+
